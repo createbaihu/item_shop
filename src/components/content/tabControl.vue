@@ -37,6 +37,7 @@ export default {
 </script>
 <style scoped>
 #tab-control {
+   padding-bottom: 8px;
    display: flex;
    text-align: center;
    padding-top: 4px;

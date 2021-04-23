@@ -25,7 +25,6 @@ export default {
 </script>
 <style scoped>
 #good-list{
-  margin-top: 14px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
