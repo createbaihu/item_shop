@@ -1,6 +1,7 @@
 <template>
   <div class="wrapper" ref="wrap">
-    <slot name="content"></slot>
+    <slot name="content">
+    </slot>
   </div>
 </template>
 
@@ -25,15 +26,24 @@ export default {
     requestToUpdateData(position) {
       let trigger = Math.abs(position.y);
      //console.log(trigger)
-      this.$emit("trigger", trigger)
-       
+      this.$emit("trigger", trigger)     
     },
+    // fangdou(hanshu,detail){
+    //   let timer=null
+    //   return function(...args){
+    //    if(timer) { clearTimeout(timer)}
+    //    timer =setTimeout(()=>{
+    //      // console.log(this)
+    //       hanshu.apply(this,args)
+    //     },detail)
+    //   }
+    // }
   },
   watch: {
     letGoTop() {
       //回到上面
       if (this.letGoTop) {
-        this.scroll.scrollTo(0, 0, 1000);
+        this.scroll.scrollTo(0,0, 1000);
         this.$emit("changeletGoTop", !this.letGoTop);
       }
     },
@@ -48,8 +58,10 @@ export default {
       },
       click: true,
       tap: true,
+      useTransition:false
       // bounce: false
     });
+    console.log(this.scroll)
     //上拉更新数据
     this.scroll.on("pullingUp", this.pullingUpAction);
 

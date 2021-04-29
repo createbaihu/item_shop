@@ -6,16 +6,20 @@ const Home = ()=>import('views/Home/Home')
 const Cate = ()=>import('views/Cate/Cate')
 const Profile = ()=>import('views/Profile/Profile')
 const Shopcart = ()=>import('views/Shopcart/Shopcart')
+const Detail = ()=>import('views/Detail/detail.vue')
 
-export default new Vuerouter({
+const router =new Vuerouter({
   routes:[
     {
       path:'/',
-      redirect:'/home'
+      redirect:'/home',
     },
     {
       path:'/home',
-      component:Home
+      component:Home,
+      meta:{
+        user:"阿西吧"
+      }
     },
     {
       path:'/cate',
@@ -28,6 +32,16 @@ export default new Vuerouter({
     {
       path:'/shopcart',
       component:Shopcart
+    },
+    {
+      path:'/detail/:iid',
+      component:Detail
     }
   ]
+})
+
+export default router
+
+router.beforeEach((to,form,next)=>{
+   next()
 })

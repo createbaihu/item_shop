@@ -1,13 +1,11 @@
 <template>
-  <div id="good-list-item">
-    <a :href="good.link">
-      <img :src="good.show.img" alt="" />
+  <div id="good-list-item" @click="jumpDetail">  
+      <img v-lazy="good.show.img" alt="" />
       <div class="des">
         <p class="title">{{ good.title }}</p>
         <span class="price">{{ good.price }}</span>
         <span class="cfav">☆{{ good.cfav }}</span>
       </div>
-    </a>
   </div>
 </template>
 
@@ -18,6 +16,11 @@ export default {
   data() {
     return {};
   },
+  methods:{
+    jumpDetail(){
+      this.$router.push("/detail/"+this.good.iid)
+    }
+  }
 };
 </script>
 <style scoped>

@@ -21,7 +21,6 @@ export default {
   },
   methods: {
     openTheRoute() {
-      console.log(this.link)
       if (!(this.link == this.$route.path)) {
         this.$router.push(this.link);
       }

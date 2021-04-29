@@ -1,5 +1,5 @@
 <template>
-  <div id="nav-bar">
+  <div id="nav-bar" :style="{backgroundColor:col,lineHeight:wid }"  >
     <div class="left">
       <slot name="left"></slot>
     </div>
@@ -15,6 +15,7 @@
 <script>
 export default {
   name: "navBar",
+  props:['col','wid'],
   data() {
     return {};
   },
@@ -25,16 +26,15 @@ export default {
   position: fixed;
   top: 0px;
   width: 100%;
-  height: 44px;
+
   display: flex;
-  background-color: var(--color-tint);
+  /* background-color: var(--color-tint); */
   text-align: center;
-  line-height: 44px;
   z-index: 9;
   
 }
 .left,.right{
-  width: 6px;
+  width: 60px;
 }
 .center{
   flex-grow: 1;

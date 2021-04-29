@@ -1,8 +1,8 @@
 <template>
   <div id="recommends-main">
-    <div v-for="(value, key) in myrecommends" :key="key">
+    <div v-for="(value, key) in recommends" :key="key">
         <a :href="value.link">
-          <img :src="value.image" alt="" />
+          <img v-lazy="value.image" alt="" />
           <p>{{ value.title }}</p>
         </a>
     </div>

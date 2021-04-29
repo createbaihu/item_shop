@@ -1,13 +1,15 @@
 <template>
   <div>
-    <nav-bar-main></nav-bar-main>
+    <NavBar col="#ff8198" wid="44px">
+        <div slot="center">购物街</div>
+    </NavBar>
 
     <tabControl :titles="tabControlList" @choose="choose($event)" :style="!tabControlFixed?{display:'none'}:{}" 
-        ref="tabControl">
+        ref="tabControl_top">
         </tabControl>
 
     <!-- 传入一个图片,链接集合即可实现轮播 -->
-    <scroll class="scro" probeType="3" pullUpLoad="true" @trigger="trigger($event)" :letGoTop="letGoTop" 
+    <scroll class="scro" probeType="3" pullUpLoad="true" @trigger="fangdou(trigger,100)($event)" :letGoTop="letGoTop" 
     @changeletGoTop="changeletGoTop($event)" @updateNext="updateNext($event)"
     @updateDate="updateDate($event)"
     >
@@ -42,6 +44,7 @@
 </template>
 
 <script>
+import NavBar from 'components/common/navbar/navBar.vue'
 import navBarMain from "components/content/navBarMain.vue";
 import { homemultidata, homeGoods } from "network/home";
 import swiperhome from "components/common/banner/swiperhome";
@@ -91,6 +94,7 @@ export default {
     goodList,
     scroll,
     backTop,
+    NavBar
   },
   created() {
     //请求多个数据
@@ -127,6 +131,9 @@ export default {
     //点击了[流行，新款，精选] 中的哪个
     choose(event) {
       this.goodIndex = parseInt(event);
+      //让两个tabControl同步
+      this.$refs.tabControl.activeIndex=this.goodIndex
+      this.$refs.tabControl_top.activeIndex=this.goodIndex
     },
     //下拉超过2000px，则显示上拉按钮
     trigger(event) {
@@ -137,12 +144,24 @@ export default {
       }else{
           this.showBackTop=false
       }
+      //当上滑超过tabOffsetTop + 它本身的高度时  tabControlFixed确定谁显示
       if(event>=(this.tabOffsetTop+44)){
         this.tabControlFixed=true;
       }else{
         this.tabControlFixed=false;
-      }
-      
+      }     
+    },
+    fangdou(hanshu,detail){
+       let timer=null
+       return function(...args){
+         if(timer){
+          //console.log(timer)
+          clearTimeout(timer)
+         }
+         timer=setTimeout(()=>{
+           hanshu.apply(this,args)
+         },detail)
+       }
     },
     //点击返回最上面
     call(event){
@@ -162,6 +181,7 @@ export default {
     updateDate(event){
       document.location.reload();
     },
+    //当轮播图加载完 $emit一个事件 此时可以获得真实的offsetTop
     imgloadGood(){
       setTimeout(()=>{
         this.tabOffsetTop= this.$refs.tabControl.$el.offsetTop
@@ -180,6 +200,12 @@ export default {
     //   console.log(this.$refs.tabControl.$el.offsetTop)
     // },300)
   },
+  deactivated(){
+ 
+  },
+  activated(){
+    
+  }
 };
 </script>
 <style scoped>
